@@ -1,0 +1,144 @@
+2025-10-29 15:31:00,809 | INFO | main | FastAPI application created
+2025-10-29 15:35:13,048 | INFO | main | FastAPI application created
+2025-10-29 19:57:16,438 | INFO | routes.auth | Signup attempt | email=user@example.com
+2025-10-29 19:57:17,919 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.user%40example.com "HTTP/2 406 Not Acceptable"
+2025-10-29 20:10:17,257 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:10:17,258 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:10:17,263 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:10:17,263 | INFO | main | FastAPI application created
+2025-10-29 20:27:59,628 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:28:00,976 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com "HTTP/2 406 Not Acceptable"
+2025-10-29 20:31:25,648 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:31:25,648 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:31:25,657 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:31:25,658 | INFO | main | FastAPI application created
+2025-10-29 20:31:38,281 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:31:38,951 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:31:38,954 | WARNING | passlib.handlers.bcrypt | (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "D:\github uploads\LunaAI\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-10-29 20:38:32,020 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:38:32,713 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:38:32,716 | WARNING | passlib.handlers.bcrypt | (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "D:\github uploads\LunaAI\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-10-29 20:38:59,301 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:38:59,302 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:38:59,307 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:38:59,307 | INFO | main | FastAPI application created
+2025-10-29 20:41:04,247 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:41:04,937 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:41:04,938 | WARNING | passlib.handlers.bcrypt | (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "D:\github uploads\LunaAI\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-10-29 20:43:37,447 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:43:37,447 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:43:37,452 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:43:37,452 | INFO | main | FastAPI application created
+2025-10-29 20:44:10,672 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:44:11,492 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:44:11,494 | WARNING | passlib.handlers.bcrypt | (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "D:\github uploads\LunaAI\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-10-29 20:47:30,299 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:47:30,300 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:47:30,305 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:47:30,305 | INFO | main | FastAPI application created
+2025-10-29 20:47:45,417 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:47:46,105 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:47:46,106 | WARNING | passlib.handlers.bcrypt | (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "D:\github uploads\LunaAI\backend\venv\Lib\site-packages\passlib\handlers\bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-10-29 20:50:25,518 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:50:25,519 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:50:25,524 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:50:25,524 | INFO | main | FastAPI application created
+2025-10-29 20:50:38,058 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:50:38,710 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:53:18,748 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:53:19,311 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:56:18,260 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:56:18,261 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:56:18,266 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:56:18,266 | INFO | main | FastAPI application created
+2025-10-29 20:56:43,287 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:56:43,960 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:56:44,313 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 401 Unauthorized"
+2025-10-29 20:57:40,811 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:57:40,812 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:57:40,822 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:57:40,823 | INFO | main | FastAPI application created
+2025-10-29 20:57:48,473 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:57:48,474 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:57:48,479 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:57:48,479 | INFO | main | FastAPI application created
+2025-10-29 20:58:10,973 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:58:10,973 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:58:10,978 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:58:10,979 | INFO | main | FastAPI application created
+2025-10-29 20:58:45,817 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 20:58:46,596 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 20:58:46,809 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 401 Unauthorized"
+2025-10-29 20:59:10,183 | INFO | main | Logging configured | level=INFO
+2025-10-29 20:59:10,201 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 20:59:10,210 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 20:59:10,214 | INFO | main | FastAPI application created
+2025-10-29 21:00:14,605 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 21:00:15,266 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 21:00:15,469 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 401 Unauthorized"
+2025-10-29 21:06:04,990 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:06:04,991 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:06:05,001 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:06:05,003 | INFO | main | FastAPI application created
+2025-10-29 21:06:07,328 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:06:07,329 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:06:07,338 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:06:07,339 | INFO | main | FastAPI application created
+2025-10-29 21:06:09,057 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:06:09,058 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:06:09,064 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:06:09,065 | INFO | main | FastAPI application created
+2025-10-29 21:08:00,172 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:08:00,172 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:08:00,178 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:08:00,178 | INFO | main | FastAPI application created
+2025-10-29 21:08:01,801 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:08:01,802 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:08:01,807 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:08:01,808 | INFO | main | FastAPI application created
+2025-10-29 21:08:13,860 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:08:13,861 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:08:13,866 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:08:13,866 | INFO | main | FastAPI application created
+2025-10-29 21:08:15,320 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:08:15,321 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:08:15,326 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:08:15,326 | INFO | main | FastAPI application created
+2025-10-29 21:08:37,487 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:08:37,488 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:08:37,493 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:08:37,493 | INFO | main | FastAPI application created
+2025-10-29 21:11:37,731 | INFO | main | Logging configured | level=INFO
+2025-10-29 21:11:37,732 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-29 21:11:37,737 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-29 21:11:37,737 | INFO | main | FastAPI application created
+2025-10-29 21:11:57,250 | INFO | routes.auth | Signup attempt | email=aanya@example.com
+2025-10-29 21:11:58,143 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 21:11:58,361 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 201 Created"
+2025-10-29 21:11:58,563 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 21:11:58,588 | INFO | routes.auth | Signup success | user_id=4 email=aanya@example.com

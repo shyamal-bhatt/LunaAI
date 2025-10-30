@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
+import { indexStyles as styles } from '../styles/indexStyles';
 
 export default function Index() {
   useEffect(() => {
@@ -21,26 +22,3 @@ export default function Index() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f8fafc',
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#ec4899',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#6b7280',
-    marginBottom: 32,
-  },
-  loader: {
-    marginTop: 20,
-  },
-});

@@ -1,22 +1,31 @@
+// Login screen component
+// - Renders email/password form and calls FastAPI /auth/login on submit
+// - On success, navigates to the app's root
 import React, { useState } from 'react';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   KeyboardAvoidingView,
   Platform,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
+import { API_BASE_URL } from '../../lib/config';
+import { loginStyles as styles } from '../../styles/authLoginStyles';
 
 export default function LoginScreen() {
+  // Local state: controlled inputs and loading flag
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Triggered when the user presses the "Sign In" button
+  // - Validates required fields
+  // - Sends POST /auth/login to backend
+  // - On success, navigates to '/'
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
@@ -25,16 +34,25 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      // TODO: Implement actual authentication logic
-      console.log('Login attempt:', { email, password });
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For now, just navigate to main app
+      // Call FastAPI login to receive JWT
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: 'Login failed' }));
+        throw new Error(err.detail || 'Login failed');
+      }
+
+      const data = await res.json();
+      // Example: persist token securely (later move to secure storage)
+      // For now we proceed to app on success
+      console.log('JWT received', data.access_token);
       router.replace('/');
     } catch (error) {
-      Alert.alert('Error', 'Login failed. Please try again.');
+      Alert.alert('Error', error.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -59,6 +77,7 @@ export default function LoginScreen() {
           <View style={styles.form}>
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Email</Text>
+              {/* Updates `email` on each keystroke */}
               <TextInput
                 style={styles.input}
                 placeholder="Enter your email"
@@ -72,6 +91,7 @@ export default function LoginScreen() {
 
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Password</Text>
+              {/* Updates `password` on each keystroke */}
               <TextInput
                 style={styles.input}
                 placeholder="Enter your password"
@@ -85,6 +105,7 @@ export default function LoginScreen() {
 
             <TouchableOpacity
               style={[styles.loginButton, isLoading && styles.buttonDisabled]}
+              // Pressing this calls `handleLogin`
               onPress={handleLogin}
               disabled={isLoading}
             >
@@ -100,6 +121,7 @@ export default function LoginScreen() {
 
           <View style={styles.footer}>
             <Text style={styles.footerText}>Don't have an account? </Text>
+            {/* Navigates to signup screen when pressed */}
             <Link href="/auth/signup" asChild>
               <TouchableOpacity>
                 <Text style={styles.signupLink}>Sign Up</Text>
@@ -112,99 +134,4 @@ export default function LoginScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8fafc',
-  },
-  keyboardAvoidingView: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 24,
-    justifyContent: 'center',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 48,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#6b7280',
-    textAlign: 'center',
-  },
-  appName: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#ec4899',
-    marginBottom: 12,
-    letterSpacing: 1,
-  },
-  form: {
-    marginBottom: 32,
-  },
-  inputContainer: {
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#374151',
-    marginBottom: 8,
-  },
-  input: {
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#d1d5db',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
-    color: '#1f2937',
-  },
-  loginButton: {
-    backgroundColor: '#ec4899',
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  buttonDisabled: {
-    backgroundColor: '#f3f4f6',
-  },
-  loginButtonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  forgotPassword: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  forgotPasswordText: {
-    color: '#ec4899',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footerText: {
-    color: '#6b7280',
-    fontSize: 14,
-  },
-  signupLink: {
-    color: '#ec4899',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});
+// Styles moved to ../../styles/authLoginStyles for consistency and reuse

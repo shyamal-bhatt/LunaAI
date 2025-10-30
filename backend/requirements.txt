@@ -1,3 +1,9 @@
 fastapi
 uvicorn
 pydantic
+supabase
+python-dotenv
+passlib[bcrypt]
+python-jose[cryptography]
+email-validator
+argon2-cffi
