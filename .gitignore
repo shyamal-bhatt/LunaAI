@@ -35,7 +35,9 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .python-version
-
+./backend/__pycache__
+./backend/supadb/__pycache__
+./backend/routes/__pycache__
 # Virtual environments
 venv/
 .venv/
@@ -49,7 +51,8 @@ backend/venv/
 *.env
 *.env.*
 backend/.env
-backend/supadb/.env
+./backend/supadb/.env
+./backend/routes/.env
 frontend/.env
 
 ##############################
