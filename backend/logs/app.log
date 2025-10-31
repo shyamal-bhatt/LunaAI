@@ -142,3 +142,6 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-10-29 21:11:58,361 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 201 Created"
 2025-10-29 21:11:58,563 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
 2025-10-29 21:11:58,588 | INFO | routes.auth | Signup success | user_id=4 email=aanya@example.com
+2025-10-29 21:13:33,130 | INFO | routes.auth | Login attempt | email=aanya@example.com
+2025-10-29 21:13:33,509 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
+2025-10-29 21:13:33,792 | INFO | routes.auth | Login success | user_id=4 email=aanya@example.com
