@@ -145,3 +145,59 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-10-29 21:13:33,130 | INFO | routes.auth | Login attempt | email=aanya@example.com
 2025-10-29 21:13:33,509 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.aanya%40example.com&limit=1 "HTTP/2 200 OK"
 2025-10-29 21:13:33,792 | INFO | routes.auth | Login success | user_id=4 email=aanya@example.com
+2025-10-30 21:36:06,181 | INFO | main | Logging configured | level=INFO
+2025-10-30 21:36:06,182 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 21:36:06,192 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 21:36:06,192 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 21:36:06,192 | INFO | main | FastAPI application created
+2025-10-30 21:45:46,164 | INFO | main | Logging configured | level=INFO
+2025-10-30 21:45:46,164 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 21:45:46,170 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 21:45:46,170 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 21:45:46,171 | INFO | main | FastAPI application created
+2025-10-30 22:25:21,553 | INFO | main | Logging configured | level=INFO
+2025-10-30 22:25:21,554 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 22:25:21,560 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 22:25:21,560 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 22:25:21,560 | INFO | main | FastAPI application created
+2025-10-30 22:33:45,518 | INFO | main | Logging configured | level=INFO
+2025-10-30 22:33:45,519 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 22:33:45,525 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 22:33:45,526 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 22:33:45,526 | INFO | main | FastAPI application created
+2025-10-30 22:37:53,579 | INFO | main | Logging configured | level=INFO
+2025-10-30 22:37:53,580 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 22:37:53,586 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 22:37:53,587 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 22:37:53,587 | INFO | main | FastAPI application created
+2025-10-30 22:46:19,973 | INFO | main | Logging configured | level=INFO
+2025-10-30 22:46:19,974 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-10-30 22:46:19,982 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-10-30 22:46:19,983 | INFO | main | Router included | prefix=/users tags=['users']
+2025-10-30 22:46:19,983 | INFO | main | FastAPI application created
+2025-10-30 22:47:50,072 | INFO | routes.users | Users upsert | email=shyamalbhatt15@gmail.com first_name=SHYAMAL
+2025-10-30 22:47:51,326 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 22:47:51,667 | INFO | httpx | HTTP Request: POST https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users "HTTP/2 201 Created"
+2025-10-30 22:47:51,978 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 22:47:51,996 | INFO | routes.users | Users upsert created | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-30 22:48:03,293 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-30 22:48:03,692 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 22:48:03,693 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-30 22:57:17,628 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-30 22:57:18,044 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 22:57:18,045 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-30 23:07:06,045 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-30 23:07:06,558 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 23:07:06,559 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-30 23:10:19,848 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-30 23:10:20,202 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 23:10:20,203 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-30 23:16:02,684 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-30 23:16:03,066 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-30 23:16:03,067 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-31 01:03:55,452 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-31 01:03:56,143 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-31 01:03:56,145 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-10-31 01:17:04,570 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
+2025-10-31 01:17:05,128 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
+2025-10-31 01:17:05,129 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com

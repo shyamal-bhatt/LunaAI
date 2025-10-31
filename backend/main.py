@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Local imports
 from routes.auth import router as auth_router
+from routes.users import router as users_router
 
 
 def configure_logging() -> None:
@@ -65,7 +66,18 @@ def create_app() -> FastAPI:
 
     # Routers
     app.include_router(auth_router, prefix="/auth", tags=["auth"])
+    app.include_router(users_router, prefix="/users", tags=["users"])
     logging.getLogger(__name__).info("Router included | prefix=/auth tags=['auth']")
+    logging.getLogger(__name__).info("Router included | prefix=/users tags=['users']")
+
+    # Health check endpoint
+    @app.get("/")
+    def root():
+        return {"status": "ok", "message": "LunaAI API is running"}
+
+    @app.get("/health")
+    def health():
+        return {"status": "healthy", "service": "LunaAI API"}
 
     logging.getLogger(__name__).info("FastAPI application created")
     return app

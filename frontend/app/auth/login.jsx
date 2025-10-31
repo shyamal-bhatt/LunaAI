@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
+import axios from 'axios';
+import { supabase } from '../../lib/supabase';
 import { API_BASE_URL } from '../../lib/config';
 import { loginStyles as styles } from '../../styles/authLoginStyles';
 
@@ -24,8 +26,9 @@ export default function LoginScreen() {
 
   // Triggered when the user presses the "Sign In" button
   // - Validates required fields
-  // - Sends POST /auth/login to backend
-  // - On success, navigates to '/'
+  // - First tries Supabase Auth (for new users)
+  // - If Supabase Auth fails, falls back to Users table verification (for legacy users)
+  // - On success from either, navigates to Home
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
@@ -34,23 +37,35 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      // Call FastAPI login to receive JWT
-      const res = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: 'Login failed' }));
-        throw new Error(err.detail || 'Login failed');
+      // Try Supabase Auth first (for users signed up through Supabase)
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (!error && data.session) {
+        // Supabase Auth succeeded
+        console.log('Supabase session established', Boolean(data.session));
+        router.replace('/(tabs)/home');
+        return;
       }
 
-      const data = await res.json();
-      // Example: persist token securely (later move to secure storage)
-      // For now we proceed to app on success
-      console.log('JWT received', data.access_token);
-      router.replace('/');
+      // Supabase Auth failed - try Users table as fallback (for legacy users)
+      console.log('Supabase Auth failed, trying Users table | error=', error?.message);
+      
+      try {
+        const response = await axios.post(`${API_BASE_URL}/users/verify-password`, {
+          email,
+          password,
+        });
+        
+        // Users table verification succeeded - create a local session marker
+        // Note: This user won't have Supabase Auth session, but app can proceed
+        console.log('Users table verification successful | user_id=', response.data.user_id);
+        
+        // Optionally create a Supabase Auth session here if needed, or proceed without it
+        router.replace('/(tabs)/home');
+      } catch (usersError) {
+        // Both Supabase Auth and Users table failed
+        throw new Error(usersError.response?.data?.detail || 'Invalid credentials');
+      }
     } catch (error) {
       Alert.alert('Error', error.message || 'Login failed. Please try again.');
     } finally {

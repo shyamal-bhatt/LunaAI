@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link, router } from 'expo-router';
+import axios from 'axios';
+import { supabase } from '../../lib/supabase';
 import { API_BASE_URL } from '../../lib/config';
 import { signupStyles as styles } from '../../styles/authSignupStyles';
 
@@ -64,28 +66,58 @@ export default function SignupScreen() {
 
   // Triggered when the user presses the "Create Account" button
   // - Validates inputs
-  // - Sends POST /auth/signup to backend
+  // - Uses Supabase Auth to sign up the user
   // - On success, navigates to the Login screen
   const handleSignup = async () => {
     if (!validateForm()) return;
 
     setIsLoading(true);
     try {
-      // Create user via FastAPI which writes to Supabase
-      const res = await fetch(`${API_BASE_URL}/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName || null,
+          },
+        },
+      });
+      if (error) throw new Error(error.message);
+
+      // Create a corresponding row in backend Users table with plaintext password (for debugging)
+      try {
+        console.log('Attempting Users upsert | url=', `${API_BASE_URL}/users/upsert`);
+        const response = await axios.post(`${API_BASE_URL}/users/upsert`, {
+          email: formData.email,
           first_name: formData.firstName,
           last_name: formData.lastName || null,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({ detail: 'Signup failed' }));
-        throw new Error(err.detail || 'Signup failed');
+          password: formData.password, // Stored as plaintext for debugging
+        }, {
+          timeout: 10000, // 10 second timeout
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+        console.log('Users upsert successful', response.data);
+      } catch (e) {
+        // Log detailed error for debugging
+        const errorInfo = {
+          message: e.message,
+          code: e.code,
+          url: `${API_BASE_URL}/users/upsert`,
+          response: e.response?.data,
+          status: e.response?.status,
+        };
+        console.error('Users upsert failed', errorInfo);
+        
+        // Network errors might be transient - log but don't block signup
+        if (e.code === 'ERR_NETWORK' || e.message === 'Network Error') {
+          console.warn('Network error - backend may be unreachable. Ensure backend is running on', API_BASE_URL);
+        }
+        // For now, we still allow signup to succeed even if Users table insert fails
+        // but log it so we can debug - this is a network/backend issue
       }
 
       Alert.alert(

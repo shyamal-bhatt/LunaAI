@@ -23,9 +23,9 @@ export const loginStyles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 48,
   },
-  // Small brand label shown above title for product identity
+  // Brand label shown above title for product identity - increased size
   appName: {
-    fontSize: 20,
+    fontSize: 36,
     fontWeight: '800',
     color: '#ec4899',
     marginBottom: 12,
