@@ -2,11 +2,18 @@
 // - Displays a swipeable calendar for tracking menstrual cycle
 // - Allows date selection for logging activities
 // - Calendar shows today's date highlighted by default
-import React, { useState, useMemo } from 'react';
+// - Persists activity logs locally and highlights dates with activities
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Calendar } from 'react-native-calendars';
 import { homeStyles as styles } from '../../styles/homeStyles';
+import {
+  getActivityLog,
+  saveActivityLog,
+  getDatesWithBleeding,
+  getDatesWithActivities,
+} from '../../lib/activityStorage';
 
 export default function Home() {
   // Get today's date in YYYY-MM-DD format for initial selection
@@ -56,25 +63,204 @@ export default function Home() {
     }
   };
 
+  // Track dates with activities for calendar highlighting
+  const [datesWithBleeding, setDatesWithBleeding] = useState([]);
+  const [datesWithActivities, setDatesWithActivities] = useState([]);
+
+  // Load dates with activities for calendar highlighting on mount
+  useEffect(() => {
+    const loadDatesForCalendar = async () => {
+      const bleedingDates = await getDatesWithBleeding();
+      const activityDates = await getDatesWithActivities();
+      setDatesWithBleeding(bleedingDates);
+      setDatesWithActivities(activityDates);
+    };
+    
+    loadDatesForCalendar();
+  }, []); // Run only once on mount
+
+  // Load activities when date changes
+  useEffect(() => {
+    const loadActivityForDate = async () => {
+      const log = await getActivityLog(selectedDate);
+      if (log) {
+        // Populate form with stored data
+        setBleeding(log.bleeding || null);
+        setBleedingColor(log.bleedingColor || null);
+        setPadCounts(log.padCounts || '');
+        setMood(log.mood || []);
+        setCravings(log.cravings || []);
+        setWorkLoad(log.workLoad || []);
+        setSymptoms(log.symptoms || []);
+        setBirthControl(log.birthControl || null);
+        setSmoke(log.smoke || null);
+        setAlcohol(log.alcohol || null);
+        setSleepQuality(log.sleepQuality || null);
+        setSleepHrs(log.sleepHrs || '');
+        setWeight(log.weight || '');
+        setExercise(log.exercise || []);
+        setSteps(log.steps || '');
+        console.log('[Home] Loaded activity log for', selectedDate);
+      } else {
+        // Clear form if no data for this date
+        setBleeding(null);
+        setBleedingColor(null);
+        setPadCounts('');
+        setMood([]);
+        setCravings([]);
+        setWorkLoad([]);
+        setSymptoms([]);
+        setBirthControl(null);
+        setSmoke(null);
+        setAlcohol(null);
+        setSleepQuality(null);
+        setSleepHrs('');
+        setWeight('');
+        setExercise([]);
+        setSteps('');
+        console.log('[Home] No activity log found for', selectedDate);
+      }
+    };
+    
+    loadActivityForDate();
+  }, [selectedDate]);
+
+  // Load dates with activities for calendar highlighting
+  useEffect(() => {
+    const loadDatesForCalendar = async () => {
+      const bleedingDates = await getDatesWithBleeding();
+      const activityDates = await getDatesWithActivities();
+      setDatesWithBleeding(bleedingDates);
+      setDatesWithActivities(activityDates);
+    };
+    
+    loadDatesForCalendar();
+  }, [selectedDate]); // Reload when selectedDate changes (after save)
+
+  // Save activity data whenever any field changes (debounced)
+  useEffect(() => {
+    const saveTimer = setTimeout(async () => {
+      const activityData = {
+        bleeding,
+        bleedingColor,
+        padCounts,
+        mood,
+        cravings,
+        workLoad,
+        symptoms,
+        birthControl,
+        smoke,
+        alcohol,
+        sleepQuality,
+        sleepHrs,
+        weight,
+        exercise,
+        steps,
+      };
+      
+      // Only save if there's at least one field with data
+      const hasData = Object.values(activityData).some(
+        value => value !== null && value !== '' && 
+        (!Array.isArray(value) || value.length > 0)
+      );
+      
+      if (hasData) {
+        await saveActivityLog(selectedDate, activityData);
+        
+        // Reload calendar highlights
+        const bleedingDates = await getDatesWithBleeding();
+        const activityDates = await getDatesWithActivities();
+        setDatesWithBleeding(bleedingDates);
+        setDatesWithActivities(activityDates);
+      }
+    }, 500); // Debounce: save 500ms after last change
+    
+    return () => clearTimeout(saveTimer);
+  }, [
+    selectedDate, bleeding, bleedingColor, padCounts, mood, cravings,
+    workLoad, symptoms, birthControl, smoke, alcohol, sleepQuality,
+    sleepHrs, weight, exercise, steps,
+  ]);
+
   // Handler called when a date is tapped
   const onDateSelect = (day) => {
     setSelectedDate(day.dateString);
-    console.log('Date selected:', day.dateString);
+    console.log('[Home] Date selected:', day.dateString);
   };
 
   // Prepare marked dates object for calendar highlighting
-  const markedDates = useMemo(() => ({
-    [selectedDate]: {
-      selected: true,
-      selectedColor: '#ec4899',
-      selectedTextColor: '#ffffff',
-    },
-    [today]: {
-      marked: true,
-      dotColor: '#ec4899',
-      // If today is selected, it will use selectedColor instead
-    },
-  }), [selectedDate, today]);
+  // Uses background colors instead of dots for all activity dates
+  const markedDates = useMemo(() => {
+    const marked = {
+      [selectedDate]: {
+        selected: true,
+        selectedColor: '#ec4899',
+        selectedTextColor: '#ffffff',
+      },
+    };
+    
+    // Mark dates with bleeding (light red background)
+    datesWithBleeding.forEach(date => {
+      if (date !== selectedDate) {
+        marked[date] = {
+          marked: true,
+          customStyles: {
+            container: {
+              backgroundColor: '#fee2e2', // Light red background
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: '#fecdd3',
+            },
+            text: {
+              color: '#991b1b', // Dark red text
+              fontWeight: '600',
+            },
+          },
+        };
+      } else {
+        // If bleeding date is selected, show pink selection with bleeding indicator
+        marked[date] = {
+          selected: true,
+          selectedColor: '#ec4899',
+          selectedTextColor: '#ffffff',
+          marked: true,
+          customStyles: {
+            container: {
+              backgroundColor: '#ec4899',
+              borderRadius: 8,
+            },
+            text: {
+              color: '#ffffff',
+              fontWeight: '600',
+            },
+          },
+        };
+      }
+    });
+    
+    // Mark dates with other activities (light pink background, but not bleeding)
+    datesWithActivities.forEach(date => {
+      if (!datesWithBleeding.includes(date) && date !== selectedDate) {
+        marked[date] = {
+          marked: true,
+          customStyles: {
+            container: {
+              backgroundColor: '#fdf2f8', // Light pink background
+              borderRadius: 8,
+              borderWidth: 1,
+              borderColor: '#fbcfe8',
+            },
+            text: {
+              color: '#9f1239', // Dark pink text
+              fontWeight: '600',
+            },
+          },
+        };
+      }
+    });
+    
+    return marked;
+  }, [selectedDate, today, datesWithBleeding, datesWithActivities]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,6 +282,45 @@ export default function Home() {
             onDayPress={onDateSelect}
             // Mark today and selected date with custom styling
             markedDates={markedDates}
+            // Custom day component to show blood drop emoji
+            dayComponent={({ date, marking, state }) => {
+              const dayString = date.dateString;
+              const isBleeding = datesWithBleeding.includes(dayString);
+              const markingData = marking || {};
+              
+              return (
+                <TouchableOpacity
+                  style={[
+                    {
+                      width: 36,
+                      height: 36,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 8,
+                    },
+                    markingData.customStyles?.container,
+                    markingData.selected && { backgroundColor: markingData.selectedColor || '#ec4899' },
+                  ]}
+                  onPress={() => onDateSelect({ dateString: dayString })}
+                >
+                  <Text
+                    style={[
+                      {
+                        fontSize: 14,
+                        color: state === 'today' ? '#ec4899' : '#1f2937',
+                      },
+                      markingData.customStyles?.text,
+                      markingData.selected && { color: markingData.selectedTextColor || '#ffffff' },
+                    ]}
+                  >
+                    {date.day}
+                  </Text>
+                  {isBleeding && (
+                    <Text style={{ fontSize: 10, marginTop: -4, lineHeight: 10 }}>🩸</Text>
+                  )}
+                </TouchableOpacity>
+              );
+            }}
             // Customize calendar theme colors to match LunaAI branding
             theme={{
               backgroundColor: '#ffffff',

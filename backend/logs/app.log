@@ -206,3 +206,8 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-11-02 01:08:10,894 | INFO | main | Router included | prefix=/auth tags=['auth']
 2025-11-02 01:08:10,894 | INFO | main | Router included | prefix=/users tags=['users']
 2025-11-02 01:08:10,894 | INFO | main | FastAPI application created
+2025-11-02 01:25:57,697 | INFO | main | Logging configured | level=INFO
+2025-11-02 01:25:57,698 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-11-02 01:25:57,704 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-11-02 01:25:57,704 | INFO | main | Router included | prefix=/users tags=['users']
+2025-11-02 01:25:57,705 | INFO | main | FastAPI application created
