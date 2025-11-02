@@ -201,3 +201,8 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-10-31 01:17:04,570 | INFO | routes.users | Password verification against Users table | email=shyamalbhatt15@gmail.com
 2025-10-31 01:17:05,128 | INFO | httpx | HTTP Request: GET https://uumpbkprkrreydinleyl.supabase.co/rest/v1/Users?select=user_id%2Cuser_email%2Cuser_pwd%2Cfirst_name%2Clast_name%2Ccreated_at&user_email=eq.shyamalbhatt15%40gmail.com&limit=1 "HTTP/2 200 OK"
 2025-10-31 01:17:05,129 | INFO | routes.users | Password verification successful | user_id=5 email=shyamalbhatt15@gmail.com
+2025-11-02 01:08:10,887 | INFO | main | Logging configured | level=INFO
+2025-11-02 01:08:10,888 | INFO | main | CORS configured | origins=* methods=* headers=*
+2025-11-02 01:08:10,894 | INFO | main | Router included | prefix=/auth tags=['auth']
+2025-11-02 01:08:10,894 | INFO | main | Router included | prefix=/users tags=['users']
+2025-11-02 01:08:10,894 | INFO | main | FastAPI application created

@@ -38,35 +38,69 @@ export default function LoginScreen() {
     setIsLoading(true);
     try {
       // Try Supabase Auth first (for users signed up through Supabase)
+      console.log('[Login] Attempting Supabase Auth...');
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       
       if (!error && data.session) {
         // Supabase Auth succeeded
-        console.log('Supabase session established', Boolean(data.session));
+        console.log('[Login] ✅ Supabase Auth successful - session established');
         router.replace('/(tabs)/home');
         return;
       }
 
-      // Supabase Auth failed - try Users table as fallback (for legacy users)
-      console.log('Supabase Auth failed, trying Users table | error=', error?.message);
+      // Supabase Auth failed - log detailed error and try Users table as fallback
+      console.error('[Login] ❌ Supabase Auth failed');
+      console.error('[Login] Error code:', error?.code);
+      console.error('[Login] Error message:', error?.message);
+      console.error('[Login] Error status:', error?.status);
+      
+      // If it's invalid credentials from Supabase, still try Users table fallback
+      // But if it's a network/connection issue with Supabase, also mention that
+      if (error?.code === 'invalid_credentials' || error?.status === 400) {
+        console.log('[Login] Supabase Auth: Invalid credentials - trying Users table fallback...');
+      } else {
+        console.warn('[Login] Supabase Auth error might be connection issue:', error?.message);
+        console.log('[Login] Still trying Users table fallback...');
+      }
       
       try {
+        console.log('[Login] Calling backend:', `${API_BASE_URL}/users/verify-password`);
         const response = await axios.post(`${API_BASE_URL}/users/verify-password`, {
           email,
           password,
+        }, {
+          timeout: 10000,
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
         
         // Users table verification succeeded - create a local session marker
         // Note: This user won't have Supabase Auth session, but app can proceed
-        console.log('Users table verification successful | user_id=', response.data.user_id);
+        console.log('[Login] ✅ Users table verification successful | user_id=', response.data.user_id);
         
         // Optionally create a Supabase Auth session here if needed, or proceed without it
         router.replace('/(tabs)/home');
       } catch (usersError) {
         // Both Supabase Auth and Users table failed
-        throw new Error(usersError.response?.data?.detail || 'Invalid credentials');
+        console.error('[Login] ❌ Users table verification failed');
+        
+        if (usersError.code === 'ERR_NETWORK') {
+          console.error('[Login] Network Error: Backend is unreachable at', API_BASE_URL);
+          console.error('[Login] Make sure backend is running: uvicorn main:app --host 0.0.0.0 --port 8000');
+          throw new Error('Backend server is not reachable. Please ensure the backend is running.');
+        } else if (usersError.response?.status === 401) {
+          console.error('[Login] Backend returned 401: Invalid credentials');
+          throw new Error('Invalid email or password');
+        } else {
+          console.error('[Login] Error:', usersError.message);
+          console.error('[Login] Response:', usersError.response?.data);
+          throw new Error(usersError.response?.data?.detail || usersError.message || 'Login failed');
+        }
       }
     } catch (error) {
+      console.error('[Login] ❌ Login failed completely');
+      console.error('[Login] Final error:', error.message);
       Alert.alert('Error', error.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);

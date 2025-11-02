@@ -16,4 +16,8 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   },
 });
 
+// Log successful connection
+console.log('[Supabase] ✅ Supabase client initialized successfully');
+console.log('[Supabase] URL:', SUPABASE_URL);
+
 
